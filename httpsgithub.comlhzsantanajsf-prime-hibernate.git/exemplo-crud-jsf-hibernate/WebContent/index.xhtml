@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JSF Hibernate CRUD Example</title>
+	<style>
+tfoot {
+	text-align: center;
+}
+
+thead {
+	background-color: magenta;
+	color: white;
+}
+
+td {
+	font-weight: bold;
+}
+
+.msg {
+	font-size: small;
+	color: blue;
+}
+</style>
+	<script src="resources/scripts.js"></script>
+</h:head>
+<h:body>
+	<h:form>
+		<h:commandButton value="Inserir nova empresa"
+			action="#{empresa.navigateCreate}" ajax="false" />
+	</h:form>
+
+	<p:outputLabel value="#{empresa.msg}" id="msg1" styleClass="msg" />
+
+	<p:dataTable emptyMessage="Não há empresas cadastradas"
+		value="#{empresa.listaEmpresas}" var="e" styleClass="order-table"
+		headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-even-row" paginator="true"
+		rows="20">
+
+		<p:message for="total" />
+
+		<p:column headerText="Logotipo">
+			<img src="#{e.strLogotipo}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{e.CNPJ}" filterBy="#{e.CNPJ}"
+			filterMatchMode="exact">
+			<h:outputText value="#{e.CNPJ}" />
+		</p:column>
+		<p:column headerText="Razão Social" sortBy="#{e.razaoSocial}"
+			filterBy="#{e.razaoSocial}" filterMatchMode="exact">
+			<h:outputText value="#{e.razaoSocial}" />
+		</p:column>
+		<p:column headerText="UF" sortBy="#{e.uf}" filterBy="#{e.uf}"
+			filterMatchMode="exact">
+			<h:outputText value="#{e.uf}" />
+		</p:column>
+		<p:column headerText="Município" sortBy="#{e.municipio}"
+			filterBy="#{e.municipio}" filterMatchMode="exact">
+			<h:outputText value="#{e.municipio}" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+    			Filial
+			</f:facet>
+    		#{e.tipo}
+    	</p:column>
+		<p:column>
+			<h:form id="commandForm">
+				
+				<h:commandButton value="Delete" styleClass="fs-button-portfolio"
+					action="#{empresa.deleteEmpresa}" ajax="false">
+					<f:setPropertyActionListener target="#{empresa.selectedCNPJ}"
+						value="#{e.CNPJ}" />
+				</h:commandButton>
+				<h:commandButton value="Edit" styleClass="fs-button-portfolio"
+					action="#{empresa.editEmpresa}" ajax="false">
+					<f:setPropertyActionListener target="#{empresa.selectedCNPJ}"
+						value="#{e.CNPJ}" />
+				</h:commandButton>
+
+			</h:form>
+		</p:column>
+	</p:dataTable>
+
+	<p:confirmDialog global="true" showEffect="fade" message="Tem certeza?"
+		hideEffect="explode" widgetVar="deleteConfirmation">
+		<h:form>
+			<h:commandButton value="Yes" styleClass="fs-button-portfolio"
+				action="#{empresa.deleteEmpresa}" ajax="false">
+			</h:commandButton>
+				
+			<h:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				
+		</h:form>
+	</p:confirmDialog>
+</h:body>
+</html>

@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JSF Hibernate CRUD Example</title>
+	<style>
+		tfoot {
+			text-align: center;
+		}
+		
+		thead {
+			background-color: magenta;
+			color: white;
+		}
+		
+		td {
+			font-weight: bold;
+		}
+		
+		.msg {
+			font-size: small;
+			color: blue;
+		}
+	</style>
+	<script src="resources/scripts.js"></script>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h:commandButton value="Retornar ao início" action="#{empresa.navigateIndex}" ajax="false" />
+	</h:form>
+	
+	<h:form id="empresaForm" enctype="multipart/form-data">
+	
+		<p:panelGrid id="panel2" columns="3" cellpadding="5"
+			cellspacing="1">
+			<f:facet name="header">
+				<h:outputText value="Atualizar empresa" />
+			</f:facet>
+
+			<p:outputLabel value="Razao social:" />
+			<p:inputText value="#{empresa.razaoSocial}" id="razaoSocial"
+				maxlength="100" required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="razaoSocial" />
+
+			<p:outputLabel value="CNPJ:" />
+			<p:inputText value="#{empresa.CNPJ}"  required="true" id="CNPJ" validatorMessage="CNPJ mal formatado" requiredMessage="Campo obrigatório">
+				<f:validateRegex pattern="^[0-9]{2,3}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4}-[0-9]{2}$" />
+			</p:inputText>
+			<p:message for="CNPJ" />
+
+			<p:outputLabel value="Logradouro:" required="true" />
+			<p:inputText value="#{empresa.logradouro}" id="logradouro"
+				maxlength="150" required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="logradouro" />
+
+			<p:outputLabel value="Número:" />
+			<p:inputText value="#{empresa.numero}" id="numero" required="true"
+				requiredMessage="Campo obrigatório" maxlength="10">
+				<f:convertNumber integerOnly="true" type="number" />
+			</p:inputText>
+			<p:message for="numero" />
+
+			<p:outputLabel value="Complemento:" />
+			<p:inputText value="#{empresa.complemento}" id="complemento" />
+			<p:message for="complemento" />
+
+			<p:outputLabel value="Município:" />
+			<p:inputText value="#{empresa.municipio}" id="municipio"
+				maxlength="150" required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="municipio" />
+
+			<p:outputLabel value="UF:" />
+			<p:inputText value="#{empresa.uf}" id="uf" maxlength="2"
+				required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="uf" />
+
+			<p:outputLabel value="Telefone 1:" />
+			<p:inputText value="#{empresa.telefone1}" id="telefone1"
+				required="true" requiredMessage="Campo obrigatório"
+				validatorMessage="Telefone mal formatado. Ex. (99) 9999-9999">
+				<f:validateRegex
+					pattern="^[+][9][0-9]{2}(\(11\) [9][0-9]{4}-[0-9]{4})|(\(1[2-9]\) [5-9][0-9]{3}-[0-9]{4})|(\([2-9][1-9]\) [5-9][0-9]{3}-[0-9]{4})$" />
+			</p:inputText>
+
+			<p:message for="telefone1" />
+
+			<p:outputLabel value="Telefone 2:" />
+			<p:inputText value="#{empresa.telefone2}" id="telefone2"
+				validatorMessage="Telefone mal formatado. Ex. (99) 9999-9999">
+
+				<f:validateRegex
+					pattern="^[+][9][0-9]{2}(\(11\) [9][0-9]{4}-[0-9]{4})|(\(1[2-9]\) [5-9][0-9]{3}-[0-9]{4})|(\([2-9][1-9]\) [5-9][0-9]{3}-[0-9]{4})$" />
+			</p:inputText>
+			<p:message for="telefone2" />
+
+			<p:outputLabel value="Email" />
+			<p:inputText id="email" value="#{empresa.email}" label="email"
+				size="40" validatorMessage="Email mal formatado">
+
+				<f:validateRegex
+					pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+			</p:inputText>
+			<p:message for="email" />
+
+			<p:outputLabel value="Fax:" />
+			<p:inputText value="#{empresa.fax}" id="fax"
+				validatorMessage="Fax mal formatado. Ex. (99) 9999-9999">
+				<f:validateRegex
+					pattern="^[+][9][0-9]{2}(\(11\) [9][0-9]{4}-[0-9]{4})|(\(1[2-9]\) [5-9][0-9]{3}-[0-9]{4})|(\([2-9][1-9]\) [5-9][0-9]{3}-[0-9]{4})$" />
+			</p:inputText>
+
+			<p:message for="fax" />
+
+			<f:facet name="footer">
+				<h:commandButton value="Atualizar"
+					update="empresaForm"
+					action="#{empresa.updateEmpresa}">
+					<f:ajax
+						render="razaoSocial CNPJ logradouro numero complemento municipio uf telefone1 telefone2 fax"
+						execute="@form" />
+				</h:commandButton>
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+
+</h:body>
+</html>
