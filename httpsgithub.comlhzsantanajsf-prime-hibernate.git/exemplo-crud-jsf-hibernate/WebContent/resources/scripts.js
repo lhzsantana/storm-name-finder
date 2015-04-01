@@ -1,7 +1,0 @@
-
-function chooseMatrizFilial(){
-	
-	$("#divMatrizFilial").toogle();
-	
-	
-}
