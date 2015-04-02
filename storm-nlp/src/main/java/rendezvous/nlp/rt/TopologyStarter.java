@@ -1,6 +1,6 @@
-package rendezvous.rt;
+package rendezvous.nlp.rt;
 
-import rendezvous.rt.util.StormRunner;
+import rendezvous.nlp.rt.util.StormRunner;
 import backtype.storm.Config;
 import backtype.storm.testing.TestWordSpout;
 import backtype.storm.topology.TopologyBuilder;

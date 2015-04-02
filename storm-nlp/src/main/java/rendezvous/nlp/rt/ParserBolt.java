@@ -1,18 +1,15 @@
-package rendezvous.rt;
+package rendezvous.nlp.rt;
 
 import java.util.Map;
 
-import rendezvous.nlp.NameFinder;
+import rendezvous.nlp.parser.PageParser;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichBolt;
-import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 
-public class NameFinderBolt  extends BaseRichBolt {
-
-	private static final long serialVersionUID = 1L;
+public class ParserBolt  extends BaseRichBolt {
 
 	public void prepare(Map stormConf, TopologyContext context,
 			OutputCollector collector) {
@@ -21,14 +18,15 @@ public class NameFinderBolt  extends BaseRichBolt {
 	}
 
 	public void execute(Tuple input) {
+		PageParser parser = new PageParser();
+		parser.parse(input.getString(0));
 		
-		NameFinder nameFinder = new NameFinder();
-		nameFinder.find(input.getString(0));
+		
 
 	}
 
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("links"));
-		declarer.declare(new Fields("names"));
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -1,4 +1,4 @@
-package rendezvous.nlp;
+package rendezvous.nlp.names;
 
 import java.util.List;
 

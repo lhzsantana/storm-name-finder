@@ -1,4 +1,4 @@
-package rendezvous.parser;
+package rendezvous.nlp.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

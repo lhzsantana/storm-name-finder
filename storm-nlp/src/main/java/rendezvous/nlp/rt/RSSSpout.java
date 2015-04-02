@@ -1,4 +1,4 @@
-package rendezvous.rt;
+package rendezvous.nlp.rt;
 
 import java.util.Map;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package rendezvous.storm_nlp;
+package rendezvous.nlp;
 
 /**
  * Hello world!

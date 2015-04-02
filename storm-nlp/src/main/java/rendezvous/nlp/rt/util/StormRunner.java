@@ -1,4 +1,4 @@
-package rendezvous.rt.util;
+package rendezvous.nlp.rt.util;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
